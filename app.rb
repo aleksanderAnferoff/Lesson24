@@ -5,7 +5,7 @@ require 'sinatra/reloader'
 
 get '/' do
 	@error = 'something wrong!'
-  erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
+  erb "Hello!"
 end
 
 get '/about' do
@@ -53,4 +53,27 @@ post '/contacts' do
       return erb :contacts
   end
 
+end
+
+post '/contact' do 
+require 'pony'
+Pony.mail(
+   :name => params[:name],
+  :mail => params[:mail],
+  :body => params[:body],
+  :to => 'a.anferoff@gmail.com',
+  :subject => params[:name] + " has contacted you",
+  :body => params[:message],
+  :port => '587',
+  :via => :smtp,
+  :via_options => { 
+    :address              => 'smtp.gmail.com', 
+    :port                 => '587', 
+    :enable_starttls_auto => true, 
+    :user_name            => 'lumbee', 
+    :password             => 'p@55w0rd', 
+    :authentication       => :plain, 
+    :domain               => 'localhost.localdomain'
+  })
+redirect '/success' 
 end
