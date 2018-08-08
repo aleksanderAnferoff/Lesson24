@@ -45,3 +45,12 @@ post '/visit' do
   #erb :message
   
 end                  
+
+post '/contacts' do
+  @textarea = params[:textarea]
+   if @textarea == ''
+      @error = "Напишитекст"
+      return erb :contacts
+  end
+
+end
