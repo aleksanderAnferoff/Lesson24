@@ -6,9 +6,9 @@
   <div class="form-group">
     <label> Выбираем из этих троих</label>
         <select name="barber" class="form-control">
-          <option>Sarah Connor</option>
-          <option>Thanos</option>
-          <option>Gus Finger</option>
+          <option <%= @barber == 'Sarah Connor' ? 'selected' : '' %>>  Sarah Connor</option>
+          <option <%= @barber == 'Thanos' ? 'selected' : '' %>> Thanos</option>
+          <option <%= @barber == 'Gus Finger' ? 'selected' : '' %>> Gus Finger</option>
         </select>
   </div>
 
