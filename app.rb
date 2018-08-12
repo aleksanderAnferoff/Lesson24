@@ -2,14 +2,23 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sqlite3'
+
+
+configure do
+  @db = SQLite3::Database.new 'barbershop.db'
+  @db.execute 'CREATE TABLE Users 
+    (id integer PRIMARY KEY AUTOINCREMENT,
+    username text,
+    phone text,
+    color text,
+    datestamp text,
+    barber text)'
+end
 
 get '/' do
 	@error = 'something wrong!'
   erb "Hello!"
-end
-
-get '/about' do
-    erb :about
 end
 
 get '/visit' do
@@ -18,6 +27,10 @@ end
 
 get '/contacts' do
     erb :contacts 
+end
+
+get '/about' do
+    erb :about
 end
 
 post '/visit' do
@@ -52,10 +65,9 @@ post '/contacts' do
       @error = "Напишитекст"
       return erb :contacts
   end
-
 end
 
-post '/contact' do 
+post '/contacts' do 
 require 'pony'
 Pony.mail(
    :name => params[:name],
