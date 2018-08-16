@@ -7,7 +7,8 @@ require 'sqlite3'
 
 configure do
   db = get_db
-  db.execute 'CREATE TABLE Users 
+  db.execute 'CREATE TABLE IF NOT EXISTS 
+              Users 
               (id integer PRIMARY KEY AUTOINCREMENT,
               username text,
               phone text,
