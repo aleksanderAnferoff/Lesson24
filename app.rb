@@ -6,18 +6,18 @@ require 'sqlite3'
 
 
 configure do
-  @db = SQLite3::Database.new 'barbershop.db'
-  @db.execute 'CREATE TABLE Users 
-    (id integer PRIMARY KEY AUTOINCREMENT,
-    username text,
-    phone text,
-    color text,
-    datestamp text,
-    barber text)'
+  db = get_db
+  db.execute 'CREATE TABLE Users 
+              (id integer PRIMARY KEY AUTOINCREMENT,
+              username text,
+              phone text,
+              color text,
+              datestamp text,
+              barber text)'
 end
 
 get '/' do
-	@error = 'something wrong!'
+	@error = 'Example error!'
   erb "Hello!"
 end
 
@@ -54,38 +54,52 @@ post '/visit' do
   @f.write "\nUser : #{@username}, Phone : #{@phone}, Date and time: #{@datetime} to #{@barber} #{@color}"
   @f.close
 
+  db = get_db
+  db.execute 'insert into "Users" 
+              (
+                username, 
+                phone, 
+                datestamp, 
+                barber, 
+                color
+              )
+                values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
+
   erb "Вы заказаны на #{@datetime} to #{@barber} цвет #{@color}"
   #erb :message
-  
-end                  
+end
+
+def get_db
+  return SQLite3::Database.new 'mydatabase.db'
+end              
 
 post '/contacts' do
   @textarea = params[:textarea]
-   if @textarea == ''
+  if @textarea == ''
       @error = "Напишитекст"
       return erb :contacts
   end
 end
 
-post '/contacts' do 
-require 'pony'
-Pony.mail(
-   :name => params[:name],
-  :mail => params[:mail],
-  :body => params[:body],
-  :to => 'a.anferoff@gmail.com',
-  :subject => params[:name] + " has contacted you",
-  :body => params[:message],
-  :port => '587',
-  :via => :smtp,
-  :via_options => { 
-    :address              => 'smtp.gmail.com', 
-    :port                 => '587', 
-    :enable_starttls_auto => true, 
-    :user_name            => 'lumbee', 
-    :password             => 'p@55w0rd', 
-    :authentication       => :plain, 
-    :domain               => 'localhost.localdomain'
-  })
-redirect '/success' 
-end
+# post '/contacts' do 
+# require 'pony'
+# Pony.mail(
+#    :name => params[:name],
+#   :mail => params[:mail],
+#   :body => params[:body],
+#   :to => 'a.anferoff@gmail.com',
+#   :subject => params[:name] + " has contacted you",
+#   :body => params[:message],
+#   :port => '587',
+#   :via => :smtp,
+#   :via_options => { 
+#     :address              => 'smtp.gmail.com', 
+#     :port                 => '587', 
+#     :enable_starttls_auto => true, 
+#     :user_name            => 'lumbee', 
+#     :password             => 'p@55w0rd', 
+#     :authentication       => :plain, 
+#     :domain               => 'localhost.localdomain'
+#   })
+# redirect '/success' 
+# end
