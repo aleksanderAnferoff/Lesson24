@@ -3,6 +3,7 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
+require 'pony'
 
 
 configure do
@@ -77,30 +78,31 @@ end
 post '/contacts' do
   @textarea = params[:textarea]
   if @textarea == ''
-      @error = "Напишитекст"
+      @error = "Напиши что-нибудь!"
       return erb :contacts
   end
+  erb 'Почтовый голубь вылетел!'
 end
 
-# post '/contacts' do 
-# require 'pony'
-# Pony.mail(
-#    :name => params[:name],
-#   :mail => params[:mail],
-#   :body => params[:body],
-#   :to => 'a.anferoff@gmail.com',
-#   :subject => params[:name] + " has contacted you",
-#   :body => params[:message],
-#   :port => '587',
-#   :via => :smtp,
-#   :via_options => { 
-#     :address              => 'smtp.gmail.com', 
-#     :port                 => '587', 
-#     :enable_starttls_auto => true, 
-#     :user_name            => 'lumbee', 
-#     :password             => 'p@55w0rd', 
-#     :authentication       => :plain, 
-#     :domain               => 'localhost.localdomain'
-#   })
-# redirect '/success' 
-# end
+post '/contacts' do 
+require 'pony'
+Pony.mail(
+   :name => params[:name],
+  :mail => params[:mail],
+  :body => params[:body],
+  :to => 'a.anferoff@gmail.com',
+  :subject => params[:name] + " has contacted you",
+  :body => params[:message],
+  :port => '587',
+  :via => :smtp,
+  :via_options => { 
+    :address              => 'smtp.gmail.com', 
+    :port                 => '587', 
+    :enable_starttls_auto => true, 
+    :user_name            => 'lumbee', 
+    :password             => 'p@55w0rd', 
+    :authentication       => :plain, 
+    :domain               => 'localhost.localdomain'
+  })
+redirect '/success' 
+end
