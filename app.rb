@@ -37,7 +37,7 @@ end
 
 post '/visit' do
   @color = params[:color]
-  @barber = params[:barber] 
+  @psychologist = params[:psychologist] 
   @username = params[:username]
   @phone = params[:phone]
   @datetime = params[:datetime]
@@ -53,7 +53,7 @@ post '/visit' do
   end
 
   @f = File.open './public/contacts.txt', 'a'
-  @f.write "\nUser : #{@username}, Phone : #{@phone}, Date and time: #{@datetime} to #{@barber} #{@color}"
+  @f.write "\nUser : #{@username}, Phone : #{@phone}, Date and time: #{@datetime} to #{@psychologist} #{@color}"
   @f.close
 
   db = get_db
@@ -65,9 +65,9 @@ post '/visit' do
                 barber, 
                 color
               )
-                values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
+                values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @psychologist, @color]
 
-  erb "Вы заказаны на #{@datetime} to #{@barber} цвет #{@color}"
+  erb "Вы заказаны на #{@datetime} to #{@psychologist} цвет #{@color}"
   #erb :message
 end
 

@@ -4,11 +4,12 @@
 <form action="/visit" method="POST">
   
   <div class="form-group">
-    <label> Выбираем из этих троих</label>
+    <label> Выбираем себе психолога: </label>
         <select name="barber" class="form-control">
-          <option <%= @barber == 'Sarah Connor' ? 'selected' : '' %>>  Sarah Connor</option>
-          <option <%= @barber == 'Thanos' ? 'selected' : '' %>> Thanos</option>
-          <option <%= @barber == 'Gus Finger' ? 'selected' : '' %>> Gus Finger</option>
+          <option <%= @psychologist == 'Sarah Connor' ? 'selected' : '' %>>  Sarah Connor</option>
+          <option <%= @psychologist == 'Thanos' ? 'selected' : '' %>> Thanos</option>
+          <option <%= @psychologist == 'Gus Finger' ? 'selected' : '' %>> Gus Finger</option>
+          <option <%= @psychologist == 'Johnny English' ? 'selected' : '' %>> Johnny English</option>
         </select>
   </div>
 
@@ -28,7 +29,7 @@
   </div>
 
   <div class="form-group">
-    <label> Цвет выбираем</label> 
+    <label> Выбираем любимый цвет:</label> 
     <select id="color" name="color">
       <option value="#7bd148">Green</option>
       <option value="#5484ed">Bold blue</option>
