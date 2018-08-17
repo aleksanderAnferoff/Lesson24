@@ -71,8 +71,14 @@ post '/visit' do
   #erb :message
 end
 
+get '/users' do
+  erb "Hello World"
+end
+
 def get_db
-  return SQLite3::Database.new 'mydatabase.db'
+  db = SQLite3::Database.new 'mydatabase.db'
+  db.results_as_hash = true
+  return db
 end              
 
 post '/contacts' do
@@ -85,7 +91,7 @@ post '/contacts' do
 end
 
 post '/contacts' do 
-require 'pony'
+
 Pony.mail(
    :name => params[:name],
   :mail => params[:mail],
@@ -99,8 +105,8 @@ Pony.mail(
     :address              => 'smtp.gmail.com', 
     :port                 => '587', 
     :enable_starttls_auto => true, 
-    :user_name            => 'lumbee', 
-    :password             => 'p@55w0rd', 
+    :user_name            => 'TeetotalClub', 
+    :password             => '1234', 
     :authentication       => :plain, 
     :domain               => 'localhost.localdomain'
   })
