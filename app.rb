@@ -42,14 +42,10 @@ end
 
 get '/users' do
     db = get_db
-    #db.results_as_hash = true
+    @results = db.execute 'select * from Users order by id desc'
 
-    db.execute 'select * from Users' do |row|
-      print row['username']
-      print "\t-\t"
-      puts row ['datestamp']
-      puts '======='
-    end
+    erb :users
+
 end
 
 post '/visit' do
