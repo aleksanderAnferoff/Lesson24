@@ -5,6 +5,11 @@ require 'sinatra/reloader'
 require 'sqlite3'
 require 'pony'
 
+def get_db
+  db = SQLite3::Database.new 'mydatabase.db'
+  db.results_as_hash = true
+  return db
+end              
 
 configure do
   db = get_db
@@ -19,7 +24,7 @@ configure do
 end
 
 get '/' do
-	@error = 'Example error!'
+  @error = 'Example error!'
   erb "Hello!"
 end
 
@@ -36,7 +41,15 @@ get '/about' do
 end
 
 get '/users' do
-  erb "Hello World"
+    db = get_db
+    #db.results_as_hash = true
+
+    db.execute 'select * from Users' do |row|
+      print row['username']
+      print "\t-\t"
+      puts row ['datestamp']
+      puts '======='
+    end
 end
 
 post '/visit' do
@@ -76,11 +89,6 @@ post '/visit' do
 end
 
 
-def get_db
-  db = SQLite3::Database.new 'mydatabase.db'
-  db.results_as_hash = true
-  return db
-end              
 
 post '/contacts' do
   @textarea = params[:textarea]
