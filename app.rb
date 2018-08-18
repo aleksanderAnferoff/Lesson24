@@ -18,9 +18,9 @@ configure do
               (id integer PRIMARY KEY AUTOINCREMENT,
               username text,
               phone text,
-              color text,
               datestamp text,
-              barber text)'
+              color text,
+              psychologist text)'
 end
 
 get '/' do
@@ -55,7 +55,7 @@ post '/visit' do
   @phone = params[:phone]
   @datetime = params[:datetime]
 
-  hh = { :username => 'Введите имя',
+  hh = {  :username => 'Введите имя',
           :phone => 'Введите номер',
           :datetime => 'Введите дату и время' }
 
@@ -75,16 +75,14 @@ post '/visit' do
                 username, 
                 phone, 
                 datestamp, 
-                barber, 
                 color
+                psychologist, 
               )
-                values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @psychologist, @color]
+                values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @color, @psychologist]
 
   erb "Вы заказаны на #{@datetime} to #{@psychologist} цвет #{@color}"
   #erb :message
 end
-
-
 
 post '/contacts' do
   @textarea = params[:textarea]

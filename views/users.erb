@@ -2,16 +2,25 @@
 
 <table class="table">
 	
+	<thead>
+		<tr>
+			<th>Имя</th>
+			<th>Телефон</th>
+			<th>Дата</th>
+			<th>Любимый цвет</th>
+			<th>Специалист</th>
+		</tr>
+	</thead>
+
+	<body>
 	<% @results.each do |row| %>
-
-
-	<tr>
-		<td><%= row['username'] %></td>
-		<td><%= row['phone'] %></td>
-		<td><%= row['datestamp'] %></td>
-		<td><%= row['psychologist'] %></td>
-		<td><%= row['color'] %></td>
-	</tr>
-
+		<tr>
+			<td><%= row['username'] %></td>
+			<td><%= row['phone'] %></td>
+			<td><%= row['datestamp'] %></td>
+			<td><%= row['color'] %></td>
+			<td><%= row['psychologist'] %></td>
+		</tr>
 	<% end %>
+	</body>
 </table>
