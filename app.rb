@@ -35,6 +35,10 @@ get '/about' do
     erb :about
 end
 
+get '/users' do
+  erb "Hello World"
+end
+
 post '/visit' do
   @color = params[:color]
   @psychologist = params[:psychologist] 
@@ -52,9 +56,9 @@ post '/visit' do
       return erb :visit
   end
 
-  @f = File.open './public/contacts.txt', 'a'
-  @f.write "\nUser : #{@username}, Phone : #{@phone}, Date and time: #{@datetime} to #{@psychologist} #{@color}"
-  @f.close
+  # @f = File.open './public/contacts.txt', 'a'
+  # @f.write "\nUser : #{@username}, Phone : #{@phone}, Date and time: #{@datetime} to #{@psychologist} #{@color}"
+  # @f.close
 
   db = get_db
   db.execute 'insert into "Users" 
@@ -71,9 +75,6 @@ post '/visit' do
   #erb :message
 end
 
-get '/users' do
-  erb "Hello World"
-end
 
 def get_db
   db = SQLite3::Database.new 'mydatabase.db'
@@ -90,25 +91,24 @@ post '/contacts' do
   erb 'Почтовый голубь вылетел!'
 end
 
-post '/contacts' do 
-
-Pony.mail(
-   :name => params[:name],
-  :mail => params[:mail],
-  :body => params[:body],
-  :to => 'a.anferoff@gmail.com',
-  :subject => params[:name] + " has contacted you",
-  :body => params[:message],
-  :port => '587',
-  :via => :smtp,
-  :via_options => { 
-    :address              => 'smtp.gmail.com', 
-    :port                 => '587', 
-    :enable_starttls_auto => true, 
-    :user_name            => 'TeetotalClub', 
-    :password             => '1234', 
-    :authentication       => :plain, 
-    :domain               => 'localhost.localdomain'
-  })
-redirect '/success' 
-end
+# post '/contacts' do 
+# # Pony.mail(
+# #    :name => params[:name],
+# #   :mail => params[:mail],
+# #   :body => params[:body],
+# #   :to => 'a.anferoff@gmail.com',
+# #   :subject => params[:name] + " has contacted you",
+# #   :body => params[:message],
+# #   :port => '587',
+# #   :via => :smtp,
+# #   :via_options => { 
+# #     :address              => 'smtp.gmail.com', 
+# #     :port                 => '587', 
+# #     :enable_starttls_auto => true, 
+# #     :user_name            => 'TeetotalClub', 
+# #     :password             => '1234', 
+# #     :authentication       => :plain, 
+# #     :domain               => 'localhost.localdomain'
+# #   })
+# # redirect '/success' 
+# # end
