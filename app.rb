@@ -5,6 +5,19 @@ require 'sinatra/reloader'
 require 'sqlite3'
 require 'pony'
 
+def is_psychologist_exists? db, name
+  db.execute('select * from Psychologists where name=?', [name]).length > 0
+end
+
+def seed_db db, psychologists
+  
+  psychologists.each do |psychologist|
+    if !is_psychologist_exists? db, psychologist
+        db.execute 'insert into Psychologists (name) values (?)', [psychologist]
+    end
+  end  
+end
+
 def get_db
   db = SQLite3::Database.new 'mydatabase.db'
   db.results_as_hash = true
@@ -21,6 +34,13 @@ configure do
               datestamp text,
               color text,
               psychologist text)'
+
+  db.execute 'CREATE TABLE IF NOT EXISTS 
+              Psychologists
+              (id integer PRIMARY KEY AUTOINCREMENT,
+              name text)'
+
+  seed_db db, ['Johnny English', 'Sarah Connor', 'Gus Finger', 'Thanos']
 end
 
 get '/' do

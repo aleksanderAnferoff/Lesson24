@@ -12,7 +12,7 @@
 		</tr>
 	</thead>
 
-	<body>
+	<tbody>
 	<% @results.each do |row| %>
 		<tr>
 			<td><%= row['username'] %></td>
@@ -22,5 +22,5 @@
 			<td><%= row['psychologist'] %></td>
 		</tr>
 	<% end %>
-	</body>
+	</tbody>
 </table>
