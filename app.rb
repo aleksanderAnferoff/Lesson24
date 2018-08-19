@@ -65,12 +65,10 @@ get '/about' do
     erb :about
 end
 
-get '/users' do
+get '/showusers' do
     db = get_db
     @results = db.execute 'select * from Users order by id desc'
-
     erb :users
-
 end
 
 post '/visit' do
@@ -100,8 +98,8 @@ post '/visit' do
                 username, 
                 phone, 
                 datestamp, 
-                color
-                psychologist, 
+                color,
+                psychologist 
               )
                 values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @color, @psychologist]
 
@@ -119,23 +117,23 @@ post '/contacts' do
 end
 
 # post '/contacts' do 
-# # Pony.mail(
-# #    :name => params[:name],
-# #   :mail => params[:mail],
-# #   :body => params[:body],
-# #   :to => 'a.anferoff@gmail.com',
-# #   :subject => params[:name] + " has contacted you",
-# #   :body => params[:message],
-# #   :port => '587',
-# #   :via => :smtp,
-# #   :via_options => { 
-# #     :address              => 'smtp.gmail.com', 
-# #     :port                 => '587', 
-# #     :enable_starttls_auto => true, 
-# #     :user_name            => 'TeetotalClub', 
-# #     :password             => '1234', 
-# #     :authentication       => :plain, 
-# #     :domain               => 'localhost.localdomain'
-# #   })
-# # redirect '/success' 
-# # end
+# Pony.mail(
+#    :name => params[:name],
+#   :mail => params[:mail],
+#   :body => params[:body],
+#   :to => 'a.anferoff@gmail.com',
+#   :subject => params[:name] + " has contacted you",
+#   :body => params[:message],
+#   :port => '587',
+#   :via => :smtp,
+#   :via_options => { 
+#     :address              => 'smtp.gmail.com', 
+#     :port                 => '587', 
+#     :enable_starttls_auto => true, 
+#     :user_name            => 'TeetotalClub', 
+#     :password             => '1234', 
+#     :authentication       => :plain, 
+#     :domain               => 'localhost.localdomain'
+#   })
+# redirect '/success' 
+# end
