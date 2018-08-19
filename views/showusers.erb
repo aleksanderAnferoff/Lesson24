@@ -18,8 +18,8 @@
 			<td><%= row['username'] %></td>
 			<td><%= row['phone'] %></td>
 			<td><%= row['datestamp'] %></td>
-			<td><%= row['color'] %></td>
 			<td><%= row['psychologist'] %></td>
+			<td style="background-color: <%= row['color'] %>"><%= row['color'] %></td>
 		</tr>
 	<% end %>
 	</tbody>
