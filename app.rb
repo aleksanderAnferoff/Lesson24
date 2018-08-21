@@ -94,16 +94,15 @@ post '/visit' do
 
   db = get_db
   db.execute 'insert into "Users" 
-              (
-                username, 
+              (username, 
                 phone, 
                 datestamp, 
                 color,
-                psychologist 
-              )
+                psychologist)
                 values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @color, @psychologist]
 
-  erb "Вы заказаны на #{@datetime} to #{@psychologist} цвет #{@color}"
+  erb "<h2>Спасибо, запись создана!</h2>"
+  #erb "Вы заказаны на #{@datetime} to #{@psychologist} цвет #{@color}"
   #erb :message
 end
 
