@@ -49,8 +49,8 @@ configure do
 end
 
 get '/' do
-  @error = 'Example error!'
-  erb "Hello!"
+  @error = 'An example of an error!'
+  erb "<h2>Hello!</h2>"
 end
 
 get '/visit' do
@@ -117,7 +117,7 @@ end
 
 # post '/contacts' do 
 # Pony.mail(
-#    :name => params[:name],
+#   :name => params[:name],
 #   :mail => params[:mail],
 #   :body => params[:body],
 #   :to => 'a.anferoff@gmail.com',
@@ -129,8 +129,8 @@ end
 #     :address              => 'smtp.gmail.com', 
 #     :port                 => '587', 
 #     :enable_starttls_auto => true, 
-#     :user_name            => 'TeetotalClub', 
-#     :password             => '1234', 
+#     :user_name            => '???', 
+#     :password             => '???', 
 #     :authentication       => :plain, 
 #     :domain               => 'localhost.localdomain'
 #   })
